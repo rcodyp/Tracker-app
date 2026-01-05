@@ -27,7 +27,7 @@ export default function Dashboard() {
 
     const edit = async (text, noteId) => {
         const token = localStorage.getItem("token");
-        const res = await fetch(`http://localhost:5000/notes/${noteId}`, {
+        const res = await fetch(`https://tracker-app-backend-wnp7.onrender.com/notes/${noteId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -56,7 +56,7 @@ export default function Dashboard() {
             if (!token) return;
 
             try {
-                const res = await fetch("http://localhost:5000/notes", {
+                const res = await fetch("https://tracker-app-backend-wnp7.onrender.com/notes", {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 const data = await res.json();
@@ -72,7 +72,7 @@ export default function Dashboard() {
 
     const handelSubmit = async () => {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:5000/notes", {
+        const res = await fetch("https://tracker-app-backend-wnp7.onrender.com/notes", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -95,7 +95,7 @@ export default function Dashboard() {
 
     const del = async (noteId) => {
         const token = localStorage.getItem("token");
-        await fetch(`http://localhost:5000/notes/${noteId}`, {
+        await fetch(`https://tracker-app-backend-wnp7.onrender.com/notes/${noteId}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -114,7 +114,7 @@ export default function Dashboard() {
         const token = localStorage.getItem("token");
 
         if (token) {
-            fetch("http://localhost:5000/user", {
+            fetch("https://tracker-app-backend-wnp7.onrender.com/user", {
                 headers: { Authorization: `Bearer ${token}` },
             })
                 .then(res => {

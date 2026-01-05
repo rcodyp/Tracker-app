@@ -1,13 +1,32 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Login() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    useEffect(() => {
+        const refresh = async () => {
+        try {
+            const res = await fetch("https://tracker-app-backend-wnp7.onrender.com/login", {
+                method: "GET",
+            })
+            const data = await res.json();
+            console.log(data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+    refresh();
+
+    const intervalId = setInterval(refresh, 300000); // 5 min
+
+    return () => clearInterval(intervalId);
+    }, [])
+
     const handleLogin = async () => {
-        const res = await fetch("http://localhost:5000/login", {
+        const res = await fetch("https://tracker-app-backend-wnp7.onrender.com/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
@@ -18,7 +37,7 @@ export default function Login() {
             //const data = await res.json()
             console.log(data)
             alert(data.message);
-        } else{
+        } else {
             localStorage.setItem("token", data.token);
             localStorage.setItem("auth", "true");
             localStorage.setItem("user", JSON.stringify(data.user));
